@@ -101,7 +101,38 @@ var igv = (function (igv) {
 
                 return table;
             }
+        },
+
+        // Expand a genome id to a reference object, if needed
+        expandReference: async function (conf) {
+
+            var genomeID;
+
+            if (igv.isString(conf)) {
+                genomeID = conf;
+            }
+            else if (conf.genome) {
+                genomeID = conf.genome;
+            }
+            else if (conf.id !== undefined && conf.fastaURL === undefined) {
+                // Backward compatibility
+                genomeID = conf.id;
+            }
+
+            if (genomeID) {
+                const knownGenomes = await igv.GenomeUtils.getKnownGenomes();
+
+                var reference = knownGenomes[genomeID];
+                if (!reference) {
+                    igv.browser.presentAlert("Uknown genome id: " + genomeID, undefined);
+                }
+                return reference;
+            }
+            else {
+                return conf;
+            }
         }
+
     };
 
 

@@ -348,8 +348,8 @@ var igv = (function (igv) {
             }
         }
 
-        const genomeConfig = await expandReference(idOrConfig)
-        const genome = await igv.GenomeUtils.loadGenome(genomeConfig)
+        const genomeConfig = await igv.GenomeUtils.expandReference(idOrConfig);
+        const genome = await igv.GenomeUtils.loadGenome(genomeConfig);
         const genomeChange = self.genome && (self.genome.id !== genome.id);
         self.genome = genome;
         self.$current_genome.text(genome.id || '');
@@ -386,37 +386,6 @@ var igv = (function (igv) {
 
         self.resize();    // Force recomputation and repaint
         return self.genome;
-
-
-        // Expand a genome id to a reference object, if needed
-        async function expandReference(conf) {
-
-            var genomeID;
-
-            if (igv.isString(conf)) {
-                genomeID = conf;
-            }
-            else if (conf.genome) {
-                genomeID = conf.genome;
-            }
-            else if (conf.id !== undefined && conf.fastaURL === undefined) {
-                // Backward compatibility
-                genomeID = conf.id;
-            }
-
-            if (genomeID) {
-                const knownGenomes = await igv.GenomeUtils.getKnownGenomes()
-
-                var reference = knownGenomes[genomeID];
-                if (!reference) {
-                    self.presentAlert("Uknown genome id: " + genomeID, undefined);
-                }
-                return reference;
-            }
-            else {
-                return conf;
-            }
-        }
 
         function getInitialLocus(locus, genome) {
 
