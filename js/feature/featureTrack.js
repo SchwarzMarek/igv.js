@@ -482,10 +482,10 @@ var igv = (function (igv) {
                 if (colorByValue) {
                     color = this.config.colorBy.pallete[colorByValue];
                 }
-            }
+            } else if (feature.color) {
 
-            else if (feature.color) {
-                color = feature.color;
+                // TODO: BUG! feature.color is not a valid rgb color string
+                // color = feature.color;
             }
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
