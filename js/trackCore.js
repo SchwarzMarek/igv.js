@@ -96,6 +96,22 @@ var igv = (function (igv) {
         }
     };
 
+    igv.createLowLevelTrack = function (config, browser) {
+
+        switch (config.type) {
+
+            case "annotation":
+            case "genes":
+            case "fusionjuncspan":
+            case "snp":
+                return igv.trackFactory['feature'](config, browser);
+
+            default:
+                return igv.trackFactory.hasOwnProperty(config.type) ? igv.trackFactory[config.type](config, browser) : undefined;
+        }
+
+    };
+
     igv.createTrack = function (config, browser) {
 
         // Lowercase format
