@@ -189,11 +189,39 @@
 
                 const options =
                     {
-                        genome: "hg19",
-                        locus: 'chr1:155,160,475-155,184,282',
+                        genome: "hg38",
+                        locus: "chr21:15,327,137-24,440,334",
                         flanking: 1000,
                         queryParametersSupported: true,
-                        showAllChromosomes: true
+                        showAllChromosomes: true,
+                        tracks:
+                            [
+                                {
+                                    "url": "https://www.encodeproject.org/files/ENCFF722EUH/@@download/ENCFF722EUH.bigWig",
+                                    "color": "#ff01c7",
+                                    "name": "IMR-90 CTCF signal p-value ENCSR000EFI",
+                                    "format": "bigwig",
+                                    "type": "wig",
+                                    "filename": "ENCFF722EUH.bigWig",
+                                    "sourceType": "file",
+                                    "height": 50,
+                                    "min": 0,
+                                    "max": 10,
+                                    "autoScale": false,
+                                    "autoscale": false
+                                },
+                                {
+                                    "url": "https://www.encodeproject.org/files/ENCFF079FWO/@@download/ENCFF079FWO.bigBed",
+                                    // "color": "#FF01C7",
+                                    "color": "rgb(255,1,200)",
+                                    "name": "IMR-90 CTCF optimal idr thresholded peaks ENCSR000EFI",
+                                    "format": "bigbed",
+                                    "type": "annotation",
+                                    "filename": "ENCFF079FWO.bigBed",
+                                    "sourceType": "file",
+                                    "maxRows": 500
+                                }
+                            ]
                     };
 
                 igv
